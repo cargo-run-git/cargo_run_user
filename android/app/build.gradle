@@ -12,6 +12,8 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def googleApiKey = localProperties.getProperty('GOOGLE_API_KEY') //Google Map Key Encrypt
+
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
@@ -55,7 +57,7 @@ android {
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        // resValue "string", "google_api_key", project.env.get("GOOGLE_API_KEY")
+        resValue "string", "google_api_key", googleApiKey //Google Map Key Encrypt
     }
 
     signingConfigs {

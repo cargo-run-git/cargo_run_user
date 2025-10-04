@@ -8,7 +8,14 @@ build
 /dart_tool
 .dart_tool
 
+# Android
+android/local.properties
+
+# Lib
 /lib/config
 
 # Environment
 .env
+
+# iOS
+ios/Config.xcconfig
