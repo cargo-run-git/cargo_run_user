@@ -10,6 +10,7 @@ import 'package:cargo_run/screens/dashboard/home_screens/check_out.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:nb_utils/nb_utils.dart' as util;
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import '/services/service_locator.dart';
 import '/services/orders/orders_abstract.dart';
@@ -126,17 +127,44 @@ class OrderProvider extends ChangeNotifier {
     String lat,
     String long,
   ) async {
+    double? parsedLat = double.tryParse(lat);
+    double? parsedLong = double.tryParse(long);
+
+    if (parsedLat == null || parsedLong == null) {
+      log("Invalid coordinates: lat=$lat, long=$long");
+      util.toast("Unable to detect valid coordinates. Please retry.");
+      return;
+    }
+
     _addressDetails = AddressDetails(
-      // houseNumber: int.parse(houseNo),
       landMark: pickupAddress,
       contactNumber: contactNumber,
-      lat: double.parse(lat),
-      lng: double.parse(long),
+      lat: parsedLat,
+      lng: parsedLong,
     );
-    log("_addressDetails:${_addressDetails}");
-    log("_addressDetails:${_addressDetails?.lat}");
+
+    log("_addressDetails: $_addressDetails");
     notifyListeners();
   }
+
+  // Future<void> addAdrressDetails(
+  //   String houseNo,
+  //   String pickupAddress,
+  //   String contactNumber,
+  //   String lat,
+  //   String long,
+  // ) async {
+  //   _addressDetails = AddressDetails(
+  //     // houseNumber: int.parse(houseNo),
+  //     landMark: pickupAddress,
+  //     contactNumber: contactNumber,
+  //     lat: double.parse(lat),
+  //     lng: double.parse(long),
+  //   );
+  //   log("_addressDetails:${_addressDetails}");
+  //   log("_addressDetails:${_addressDetails?.lat}");
+  //   notifyListeners();
+  // }
 
   void setLocationCoordinate({required double lat, required double long}) {
     if (_socket != null) {

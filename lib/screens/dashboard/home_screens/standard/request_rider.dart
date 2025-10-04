@@ -92,32 +92,62 @@ class _RequestRiderState extends State<RequestRider> {
                 const SizedBox(height: 50.0),
                 Consumer<OrderProvider>(builder: (context, watch, _) {
                   return AppButton(
-                    text: 'Next',
-                    hasIcon: true,
-                    textColor: Colors.white,
-                    backgroundColor: primaryColor1,
-                    onPressed: () async {
-                      print("lat: '${_latController.text}', long: '${_longController.text}'");
-                      if (_formKey.currentState!.validate()) {
-                        watch
-                            .addAdrressDetails(
-                                _houseNoController.text,
-                                _pickupAddressController.text,
-                                _contactNumberController.text,
-                                _latController.text,
-                                _longController.text)
-                            .then((x) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const DeliveryDetailsScreen(),
-                            ),
-                          );
-                        });
+                      text: 'Next',
+                      hasIcon: true,
+                      textColor: Colors.white,
+                      backgroundColor: primaryColor1,
+                      onPressed: () async {
+                        print("lat: '${_latController.text}', long: '${_longController.text}'");
+                        if (_formKey.currentState!.validate()) {
+                          if (_latController.text.isEmpty ||
+                              _longController.text.isEmpty) {
+                            util.toast(
+                                "Please select a valid pickup address from the suggestions");
+                            return;
+                          }
+
+                          watch
+                              .addAdrressDetails(
+                            _houseNoController.text,
+                            _pickupAddressController.text,
+                            _contactNumberController.text,
+                            _latController.text,
+                            _longController.text,
+                          )
+                              .then((x) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DeliveryDetailsScreen(),
+                              ),
+                            );
+                          });
+                        }
                       }
-                    },
-                  );
+
+                      // onPressed: () async {
+                      //   print("lat: '${_latController.text}', long: '${_longController.text}'");
+                      //   if (_formKey.currentState!.validate()) {
+                      //     watch
+                      //         .addAdrressDetails(
+                      //             _houseNoController.text,
+                      //             _pickupAddressController.text,
+                      //             _contactNumberController.text,
+                      //             _latController.text,
+                      //             _longController.text)
+                      //         .then((x) {
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (context) =>
+                      //               const DeliveryDetailsScreen(),
+                      //         ),
+                      //       );
+                      //     });
+                      //   }
+                      // },
+                      );
                 }),
                 const SizedBox(height: 30.0),
               ],

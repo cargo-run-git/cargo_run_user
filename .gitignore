@@ -1,8 +1,14 @@
+# Build
 /build
 ./build
 build
+
+# Cache
 /.dart_tool
 /dart_tool
 .dart_tool
 
 /lib/config
+
+# Environment
+.env

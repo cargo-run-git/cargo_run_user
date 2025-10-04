@@ -1,5 +1,6 @@
 import 'package:cargo_run/services/notification_service.dart';
 import 'package:cargo_run/services/service_locator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'cargo_run.dart';
@@ -8,6 +9,7 @@ import 'utils/shared_prefs.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await sharedPrefs.init();
+  await dotenv.load(fileName: ".env");
   await NotificationService.initializeNotification();
   setupServiceLocator();
   SystemChrome.setPreferredOrientations([

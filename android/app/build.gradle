@@ -55,6 +55,7 @@ android {
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        // resValue "string", "google_api_key", project.env.get("GOOGLE_API_KEY")
     }
 
     signingConfigs {
