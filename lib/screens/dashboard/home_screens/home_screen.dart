@@ -48,23 +48,44 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  bool _isRequestingLocation = false;
+
   void getPosition() async {
-    Position position = await determinePosition();
-    if (mounted) {
-      context.read<OrderProvider>().setLocationCoordinate(
-            lat: position.latitude,
-            long: position.longitude,
-          );
+    if (_isRequestingLocation) return; // prevent multiple calls
+    _isRequestingLocation = true;
+
+    try {
+      Position position = await determinePosition();
+      if (mounted) {
+        context.read<OrderProvider>().setLocationCoordinate(
+              lat: position.latitude,
+              long: position.longitude,
+            );
+      }
+    } catch (e) {
+      debugPrint('Error getting position: $e');
+    } finally {
+      _isRequestingLocation = false;
     }
   }
+
+  // void getPosition() async {
+  //   Position position = await determinePosition();
+  //   if (mounted) {
+  //     context.read<OrderProvider>().setLocationCoordinate(
+  //           lat: position.latitude,
+  //           long: position.longitude,
+  //         );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final OrderProvider orderVM = context.watch<OrderProvider>();
-    if (orderVM.availableDriverList.isEmpty) {
-      getPosition();
-    }
+    // if (orderVM.availableDriverList.isEmpty) {
+    //   getPosition();
+    // }
     return Stack(
       children: [
         Column(
