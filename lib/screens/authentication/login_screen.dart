@@ -10,7 +10,6 @@ import 'package:cargo_run/utils/shared_prefs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../widgets/app_buttons.dart';
 import '../../styles/app_colors.dart';
 import '../../widgets/app_textfields.dart';

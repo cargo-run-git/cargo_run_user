@@ -4,7 +4,7 @@
     <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="Cargo Run"
+        android:label="CargoRun Naija"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="io.flutter.embedding.android.EnableImpeller" android:value="false"/>  

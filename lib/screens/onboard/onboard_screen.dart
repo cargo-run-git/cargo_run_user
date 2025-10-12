@@ -25,9 +25,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
             children: [
               const Spacer(),
               const SizedBox(height: 120),
-              Image.asset(
-                'assets/images/bg.png',
-                height: 70,
+              Transform.scale(
+                scale: 4.5,
+                child: Image.asset(
+                  'assets/images/logo_text.png',
+                  height: 70,
+                ),
               ),
               const SizedBox(height: 60),
               const Text(

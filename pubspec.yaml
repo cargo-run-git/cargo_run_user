@@ -1,7 +1,7 @@
 name: cargo_run
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.2.2+4
+version: 0.2.6+22
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -64,7 +64,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.4
 flutter_icons:
   android: "launcher_icon"
   ios: true
@@ -92,11 +92,11 @@ flutter:
 
 flutter_native_splash:
   color: "#1034A6"
-  image: assets/images/bg.png
+  image: assets/images/logo_text.png
 
   android_12:
     color: "#1034A6"
-    image: assets/images/bg.png
+    image: assets/images/logo_text.png
 
   android: true
   ios: true
