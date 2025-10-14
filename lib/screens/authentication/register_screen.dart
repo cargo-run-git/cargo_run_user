@@ -74,49 +74,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Form(
                 key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Hello,',
-                          style: TextStyle(
-                            fontSize: 26.0,
-                            fontWeight: FontWeight.w600,
-                          ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Hello,',
+                        style: TextStyle(
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w600,
                         ),
-                        const Text(
-                          'Please create an account to continue.',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: greyText,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      ),
+                      const Text(
+                        'Please create an account to continue.',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: greyText,
+                          fontWeight: FontWeight.w400,
                         ),
-                        const SizedBox(height: 30.0),
-                        AppTextField(
-                          labelText: 'Full Name',
+                      ),
+                      const SizedBox(height: 30.0),
+                      AppTextField(
+                        labelText: 'Full Name',
+                        isPassword: false,
+                        controller: _fullNameController,
+                      ),
+                      AppTextField(
+                        labelText: 'Email ',
+                        isPassword: false,
+                        controller: _emailController,
+                      ),
+                      AppTextField(
+                          labelText: 'Phone',
                           isPassword: false,
-                          controller: _fullNameController,
-                        ),
-                        AppTextField(
-                          labelText: 'Email ',
-                          isPassword: false,
-                          controller: _emailController,
-                        ),
-                        AppTextField(
-                            labelText: 'Phone',
-                            isPassword: false,
-                            controller: _phoneController,
-                            keyboardType: TextInputType.number),
-                        AppTextField(
-                          labelText: 'Password',
-                          isPassword: true,
-                          controller: _passwordController,
-                        ),
-                      ],
-                    ),
+                          controller: _phoneController,
+                          keyboardType: TextInputType.number),
+                      AppTextField(
+                        labelText: 'Password',
+                        isPassword: true,
+                        controller: _passwordController,
+                      ),
+                    ],
                   ),
                 ),
               ),

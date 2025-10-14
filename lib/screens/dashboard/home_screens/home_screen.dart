@@ -172,81 +172,79 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: size.height * 0.4,
               ),
             // SizedBox(height: size.height * 0.05),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Consumer<OrderProvider>(builder: (context, orderVM, _) {
-                  return Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Text(
-                          'Tracking History',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: blackText,
-                          ),
+            SingleChildScrollView(
+              child: Consumer<OrderProvider>(builder: (context, orderVM, _) {
+                return Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Text(
+                        'Tracking History',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: blackText,
                         ),
                       ),
-                      if (isTyping) ...[
-                        ...List.generate(orderVM.searcheOrders.length,
-                            (int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: TrackingCard(
-                              order: orderVM.orders[index]!,
-                            ),
-                          );
-                        }),
-                      ] else ...[
-                        Consumer<OrderProvider>(builder: (context, orderVM, _) {
-                          orderVM.orders.sort((a, b) {
-                            // Prioritize "pending" orders
-                            if (a!.status == 'pending' &&
-                                b!.status != 'pending') {
-                              return -1;
-                            } else if (a.status != 'pending' &&
-                                b!.status == 'pending') {
-                              return 1;
-                            } else {
-                              // If both have the same status, sort by createdAt in descending order
-                              return b!.createdAt!.compareTo(
-                                a.createdAt!,
-                              );
-                            }
-                          });
-
-                          if (orderVM.orders.isNotEmpty) {
-                            return Column(
-                              children: List.generate(orderVM.orders.length,
-                                  (int index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: TrackingCard(
-                                    order: orderVM.orders[index]!,
-                                  ),
-                                );
-                              }),
+                    ),
+                    if (isTyping) ...[
+                      ...List.generate(orderVM.searcheOrders.length,
+                          (int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TrackingCard(
+                            order: orderVM.orders[index]!,
+                          ),
+                        );
+                      }),
+                    ] else ...[
+                      Consumer<OrderProvider>(builder: (context, orderVM, _) {
+                        orderVM.orders.sort((a, b) {
+                          // Prioritize "pending" orders
+                          if (a!.status == 'pending' &&
+                              b!.status != 'pending') {
+                            return -1;
+                          } else if (a.status != 'pending' &&
+                              b!.status == 'pending') {
+                            return 1;
+                          } else {
+                            // If both have the same status, sort by createdAt in descending order
+                            return b!.createdAt!.compareTo(
+                              a.createdAt!,
                             );
                           }
-                          return const Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 40),
-                              child: Text(
-                                'No Tracking History',
-                                style: TextStyle(
-                                  fontSize: 20,
+                        });
+            
+                        if (orderVM.orders.isNotEmpty) {
+                          return Column(
+                            children: List.generate(orderVM.orders.length,
+                                (int index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: TrackingCard(
+                                  order: orderVM.orders[index]!,
                                 ),
+                              );
+                            }),
+                          );
+                        }
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 40),
+                            child: Text(
+                              'No Tracking History',
+                              style: TextStyle(
+                                fontSize: 20,
                               ),
                             ),
-                          );
-                        }),
-                      ]
-                    ],
-                  );
-                }),
-              ),
+                          ),
+                        );
+                      }),
+                    ]
+                  ],
+                );
+              }),
             ),
           ],
         ),

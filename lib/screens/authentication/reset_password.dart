@@ -66,17 +66,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               const SizedBox(height: 60.0),
               Form(
                 key: _formKey,
-                child: Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        AppTextField(
-                          labelText: 'Password',
-                          isPassword: true,
-                          controller: _passwordController,
-                        ),
-                      ],
-                    ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AppTextField(
+                        labelText: 'Password',
+                        isPassword: true,
+                        controller: _passwordController,
+                      ),
+                    ],
                   ),
                 ),
               ),

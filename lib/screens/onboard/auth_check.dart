@@ -22,6 +22,7 @@ class _AuthCheckScreenState extends State<AuthCheckScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor1,
       body: StreamBuilder<Map<String, dynamic>>(
         stream: Provider.of<AuthProvider>(context, listen: false)
             .validateToken()
@@ -29,8 +30,14 @@ class _AuthCheckScreenState extends State<AuthCheckScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(
-                color: primaryColor1,
+              child: SizedBox(
+                height: 12,
+                width: 12,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeCap: StrokeCap.butt,
+                  strokeWidth: 10,
+                ),
               ),
             );
           } else if (snapshot.hasError) {

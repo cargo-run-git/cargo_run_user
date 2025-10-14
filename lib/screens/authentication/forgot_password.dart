@@ -63,17 +63,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               const SizedBox(height: 60.0),
               Form(
                 key: _formKey,
-                child: Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        AppTextField(
-                          controller: _emailController,
-                          labelText: 'Email Address',
-                          isEmail: true,
-                        ),
-                      ],
-                    ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AppTextField(
+                        controller: _emailController,
+                        labelText: 'Email Address',
+                        isEmail: true,
+                      ),
+                    ],
                   ),
                 ),
               ),

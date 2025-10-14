@@ -57,31 +57,29 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               const SizedBox(height: 100.0),
               Form(
                 key: _formKey,
-                child: Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        OTPTextField(
-                          length: 5,
-                          width: MediaQuery.of(context).size.width,
-                          fieldWidth: size.width * 0.13,
-                          controller: _otpController,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 20,
-                            horizontal: 10,
-                          ),
-                          style: const TextStyle(fontSize: 20),
-                          textFieldAlignment: MainAxisAlignment.spaceAround,
-                          fieldStyle: FieldStyle.box,
-                          onCompleted: (pin) {
-                            setState(() {
-                              otp = pin;
-                            });
-                          },
-                          onChanged: (val) {},
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      OTPTextField(
+                        length: 5,
+                        width: MediaQuery.of(context).size.width,
+                        fieldWidth: size.width * 0.13,
+                        controller: _otpController,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 10,
                         ),
-                      ],
-                    ),
+                        style: const TextStyle(fontSize: 20),
+                        textFieldAlignment: MainAxisAlignment.spaceAround,
+                        fieldStyle: FieldStyle.box,
+                        onCompleted: (pin) {
+                          setState(() {
+                            otp = pin;
+                          });
+                        },
+                        onChanged: (val) {},
+                      ),
+                    ],
                   ),
                 ),
               ),

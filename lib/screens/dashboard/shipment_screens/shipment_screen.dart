@@ -47,36 +47,35 @@ class _ShipmentScreenState extends State<ShipmentScreen> {
           return Column(
             children: [
               const SizedBox(height: 20.0),
-              Expanded(
-                  child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Builder(
-                    builder: (context) {
-                      watch.orders.sort((a, b) {
-                        // Prioritize "pending" orders
-                        if (a!.status == 'pending' && b!.status != 'pending') {
-                          return -1;
-                        } else if (a.status != 'pending' &&
-                            b!.status == 'pending') {
-                          return 1;
-                        } else {
-                          // If both have the same status, sort by createdAt in descending order
-                          return b!.createdAt!.compareTo(a.createdAt!);
-                        }
-                      });
-
-                    
-                      return Column(
-                        children: List.generate(
-                          watch.orders.length,
-                          (i) => ShipmentCard(order: watch.orders[i]!),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              )),
+              SingleChildScrollView(
+                              child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Builder(
+                builder: (context) {
+                  watch.orders.sort((a, b) {
+                    // Prioritize "pending" orders
+                    if (a!.status == 'pending' && b!.status != 'pending') {
+                      return -1;
+                    } else if (a.status != 'pending' &&
+                        b!.status == 'pending') {
+                      return 1;
+                    } else {
+                      // If both have the same status, sort by createdAt in descending order
+                      return b!.createdAt!.compareTo(a.createdAt!);
+                    }
+                  });
+              
+                
+                  return Column(
+                    children: List.generate(
+                      watch.orders.length,
+                      (i) => ShipmentCard(order: watch.orders[i]!),
+                    ),
+                  );
+                },
+              ),
+                              ),
+                            ),
             ],
           );
         },
