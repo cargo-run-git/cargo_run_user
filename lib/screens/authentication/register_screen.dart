@@ -66,130 +66,132 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: appBarWidget(context, title: 'Create Account', hasBackBtn: true),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Hello,',
-                        style: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w600,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Form(
+                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Hello,',
+                          style: TextStyle(
+                            fontSize: 26.0,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      const Text(
-                        'Please create an account to continue.',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: greyText,
-                          fontWeight: FontWeight.w400,
+                        const Text(
+                          'Please create an account to continue.',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: greyText,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 30.0),
-                      AppTextField(
-                        labelText: 'Full Name',
-                        isPassword: false,
-                        controller: _fullNameController,
-                      ),
-                      AppTextField(
-                        labelText: 'Email ',
-                        isPassword: false,
-                        controller: _emailController,
-                      ),
-                      AppTextField(
-                          labelText: 'Phone',
+                        const SizedBox(height: 30.0),
+                        AppTextField(
+                          labelText: 'Full Name',
                           isPassword: false,
-                          controller: _phoneController,
-                          keyboardType: TextInputType.number),
-                      AppTextField(
-                        labelText: 'Password',
-                        isPassword: true,
-                        controller: _passwordController,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              Consumer<AuthProvider>(
-                builder: (context, watch, _) {
-                  return (watch.loadingState == LoadingState.loading)
-                      ? const LoadingButton(
-                          backgroundColor: primaryColor1,
-                          textColor: Colors.white,
-                        )
-                      : AppButton(
-                          text: 'Continue',
-                          hasIcon: true,
-                          backgroundColor: primaryColor1,
-                          textColor: Colors.white,
-                          onPressed: () async {
-                            context.read<BottomNavProvider>().setNavbarIndex(0);
-                            if (_formKey.currentState!.validate()) {
-                              try {
-                                await watch.registerUser(
-                                  email: _emailController.text,
-                                  fullName: _fullNameController.text,
-                                  password: _passwordController.text,
-                                  phone: _phoneController.text,
-                                );
-                                if (watch.loadingState ==
-                                    LoadingState.success) {
-                                  navigate();
-                                } else {
-                                  showSnackBar(watch.errorMessage);
-                                }
-                              } catch (e) {
-                                showSnackBar(e.toString());
-                              }
-                            }
-                          },
-                        );
-                },
-              ),
-              const SizedBox(height: 10.0),
-              Align(
-                alignment: Alignment.center,
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Already have an account? ',
-                    style: const TextStyle(
-                      color: greyText,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    children: [
-                      TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                            );
-                          },
-                        text: 'Login',
-                        style: const TextStyle(
-                          color: primaryColor2,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
+                          controller: _fullNameController,
                         ),
-                      ),
-                    ],
+                        AppTextField(
+                          labelText: 'Email ',
+                          isPassword: false,
+                          controller: _emailController,
+                        ),
+                        AppTextField(
+                            labelText: 'Phone',
+                            isPassword: false,
+                            controller: _phoneController,
+                            keyboardType: TextInputType.number),
+                        AppTextField(
+                          labelText: 'Password',
+                          isPassword: true,
+                          controller: _passwordController,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20.0)
-            ],
+                const SizedBox(height: 10.0),
+                Consumer<AuthProvider>(
+                  builder: (context, watch, _) {
+                    return (watch.loadingState == LoadingState.loading)
+                        ? const LoadingButton(
+                            backgroundColor: primaryColor1,
+                            textColor: Colors.white,
+                          )
+                        : AppButton(
+                            text: 'Continue',
+                            hasIcon: true,
+                            backgroundColor: primaryColor1,
+                            textColor: Colors.white,
+                            onPressed: () async {
+                              context.read<BottomNavProvider>().setNavbarIndex(0);
+                              if (_formKey.currentState!.validate()) {
+                                try {
+                                  await watch.registerUser(
+                                    email: _emailController.text,
+                                    fullName: _fullNameController.text,
+                                    password: _passwordController.text,
+                                    phone: _phoneController.text,
+                                  );
+                                  if (watch.loadingState ==
+                                      LoadingState.success) {
+                                    navigate();
+                                  } else {
+                                    showSnackBar(watch.errorMessage);
+                                  }
+                                } catch (e) {
+                                  showSnackBar(e.toString());
+                                }
+                              }
+                            },
+                          );
+                  },
+                ),
+                const SizedBox(height: 10.0),
+                Align(
+                  alignment: Alignment.center,
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
+                      style: const TextStyle(
+                        color: greyText,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                          text: 'Login',
+                          style: const TextStyle(
+                            color: primaryColor2,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20.0)
+              ],
+            ),
           ),
         ),
       ),
