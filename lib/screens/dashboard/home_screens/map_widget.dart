@@ -83,6 +83,7 @@ class _MapWidgetState extends State<MapWidget> {
 
     return SizedBox(
       child: Stack(
+        fit: StackFit.expand,
         children: [
           Column(
             children: [

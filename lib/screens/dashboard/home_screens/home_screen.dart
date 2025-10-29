@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // startCountdown();
-    getPosition();
+    // getPosition();
     Provider.of<OrderProvider>(context, listen: false).getOrders();
 
     setState(() {
@@ -48,132 +48,102 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  bool _isRequestingLocation = false;
-
-  void getPosition() async {
-    if (_isRequestingLocation) return; // prevent multiple calls
-    _isRequestingLocation = true;
-
-    try {
-      Position position = await determinePosition();
-      if (mounted) {
-        context.read<OrderProvider>().setLocationCoordinate(
-              lat: position.latitude,
-              long: position.longitude,
-            );
-      }
-    } catch (e) {
-      debugPrint('Error getting position: $e');
-    } finally {
-      _isRequestingLocation = false;
-    }
-  }
-
-  // void getPosition() async {
-  //   Position position = await determinePosition();
-  //   if (mounted) {
-  //     context.read<OrderProvider>().setLocationCoordinate(
-  //           lat: position.latitude,
-  //           long: position.longitude,
-  //         );
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final OrderProvider orderVM = context.watch<OrderProvider>();
-    // if (orderVM.availableDriverList.isEmpty) {
-    //   getPosition();
-    // }
+
     return Stack(
       children: [
-        SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                height: size.height * 0.35,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25.0,
-                  vertical: 30.0,
-                ),
-                decoration: const BoxDecoration(
-                  color: primaryColor1,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: primaryColor2,
-                          child: Center(
-                            child: Text(
-                              sharedPrefs.fullName.substring(0, 1).toUpperCase(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10.0),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //automated greeting text that is in sync with the time of the day
-                            Text(
-                              greeting,
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              getFirstWord(sharedPrefs.fullName),
-                              style: const TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const NotificationScreen(),
-                              ),
-                            );
-                          },
-                          child: const Icon(
-                            Iconsax.notification,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30.0),
-                    trackingTextField(),
-                    const SizedBox(height: 20.0),
-                  ],
-                ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              height: size.height * 0.35,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25.0,
+                vertical: 30.0,
               ),
-              if (!isTyping)
-                SizedBox(
-                  height: size.height * 0.4,
-                ),
-              // SizedBox(height: size.height * 0.05),
-              SingleChildScrollView(
+              decoration: const BoxDecoration(
+                color: primaryColor1,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: primaryColor2,
+                        child: Center(
+                          child: Text(
+                            (sharedPrefs.fullName.isNotEmpty ?? false)
+                                ? sharedPrefs.fullName[0].toUpperCase()
+                                : 'U',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //automated greeting text that is in sync with the time of the day
+                          Text(
+                            greeting,
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            getFirstWord(sharedPrefs.fullName),
+                            style: const TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotificationScreen(),
+                            ),
+                          );
+                        },
+                        child: const Icon(
+                          Iconsax.notification,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30.0),
+                  trackingTextField(),
+                  const SizedBox(height: 20.0),
+                ],
+              ),
+            ),
+            if (!isTyping)
+              SizedBox(
+                height: size.height * 0.4,
+              ),
+            // SizedBox(height: size.height * 0.05),
+            Expanded(
+              child: SingleChildScrollView(
                 child: Consumer<OrderProvider>(builder: (context, orderVM, _) {
                   return Column(
                     children: [
@@ -215,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             }
                           });
-              
+
                           if (orderVM.orders.isNotEmpty) {
                             return Column(
                               children: List.generate(orderVM.orders.length,
@@ -247,8 +217,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         if (!isTyping)
           Padding(
